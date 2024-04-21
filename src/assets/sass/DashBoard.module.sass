@@ -1,0 +1,42 @@
+@mixin animation($animation, $duration, $method, $times)
+    animation: $animation $duration $method $times
+
+@mixin keyframesExpand($name)
+    @keyframes #{$name}
+        @content
+        from
+            grid-template-columns: 10% 90%
+        to
+            grid-template-columns: 25% 75%
+
+@mixin keyframesShrink($name)
+    @keyframes #{$name}
+        @content
+        from
+            grid-template-columns: 25% 75%
+        to
+            grid-template-columns: 10% 90%
+
+.container
+    display: grid
+    grid-template-columns: 10% 90%
+    grid-template-rows: 100%
+
+    width: 100vw
+    height: 100vh
+
+    @include keyframesShrink(shrink)
+
+    @include animation(shrink, .5s, ease, 1)
+
+.containerExpand
+    display: grid
+    grid-template-columns: 25% 75%
+    grid-template-rows: 100%
+
+    width: 100vw
+    height: 100vh
+
+    @include keyframesExpand(expand)
+
+    @include animation(expand, .5s, ease, 1)
